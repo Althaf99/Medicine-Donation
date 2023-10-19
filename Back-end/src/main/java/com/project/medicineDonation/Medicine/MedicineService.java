@@ -18,28 +18,11 @@ public class MedicineService {
     @Autowired
     MedicineRepository medicineRepository;
 
-    public void CreateMedicine(MedicineDto medicineDto) {
-        List<Medicine> newList = new ArrayList<>();
-        medicineDto.getMedicine().forEach(u->{
-                Medicine coursesObj = new Medicine();
-                coursesObj.setId(.getCourseId());
-                coursesObj.setCourseDescription(coursesDto.getCourseDescription());
-                coursesObj.setCourseName(coursesDto.getCourseName());
-                coursesObj.setGrade(coursesDto.getGrade());
-                coursesObj.setUnitName(u.getUnitName());
-                coursesObj.setFileName(p.getFileName());
-                coursesObj.setFilePath(p.getFilePath());
-                coursesObj.setFileSize(p.getFileSize());
-                coursesObj.setCourseId(coursesDto.getCourseId());
-                newList.add(coursesObj);
-        });
-        courseRepo.saveAll(newList);
-
-
+    public void CreateMedicine(Medicine medicine) {
         medicineRepository.save(medicine);
     }
 
-    public List<MedicineDto> getAllMedicines() {
+    public List<Medicine> getAllMedicines() {
         return medicineRepository.findAll();
     }
 
@@ -47,10 +30,10 @@ public class MedicineService {
         medicineRepository.deleteById(id);
     }
 
-    public ResponseEntity<Object> updateMedicine(int id, MedicineDto medicine) {
+    public ResponseEntity<Object> updateMedicine(int id, Medicine medicine) {
         //check if employee exist in database
-        Optional<MedicineDto> medicineObje = medicineRepository.findById(id);
-        MedicineDto medicineDetails = medicineObje.get();
+        Optional<Medicine> medicineObje = medicineRepository.findById(id);
+        Medicine medicineDetails = medicineObje.get();
         if (medicineObje != null) {
             return new ResponseEntity<>(medicineRepository.save(medicineDetails), HttpStatus.OK);
         }

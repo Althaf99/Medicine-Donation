@@ -18,12 +18,12 @@ public class MedicineController {
 
 
     @PostMapping("/CreateMedicine")
-    private void CreateMedicine(@RequestBody MedicineDto medicine){
+    private void CreateMedicine(@RequestBody Medicine medicine){
         medicineService.CreateMedicine(medicine);
     }
 
     @GetMapping("/GetMedicineDetails")
-    private List<MedicineDto> getMedicine(){
+    private List<Medicine> getMedicine(){
         return medicineService.getAllMedicines();
     }
 
@@ -33,7 +33,7 @@ public class MedicineController {
     }
 
     @PutMapping("UpdateMedicineDetail/{id}")
-    private ResponseEntity<Object> updateMedicine(@PathVariable int id, @RequestBody MedicineDto medicine){
+    private ResponseEntity<Object> updateMedicine(@PathVariable int id, @RequestBody Medicine medicine){
         return medicineService.updateMedicine(id,medicine);
     }
 }
