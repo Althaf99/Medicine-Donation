@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 
 import { AppContext } from "../../../components/AppContext.js";
@@ -54,6 +54,11 @@ const ListMedicine = () => {
   //   }));
 
   const { data: medicineData } = useMedicine();
+  const [dataMedicine, setDataMedicine] = useState(medicineData);
+
+  useEffect(() => {
+    setDataMedicine(medicineData);
+  }, [medicineData]);
 
   const columns = [
     {
@@ -110,7 +115,15 @@ const ListMedicine = () => {
           row: { values },
         },
       }) => {
-        return <OptionPanel values={values} role={role} id={id} />;
+        return (
+          <OptionPanel
+            values={values}
+            role={role}
+            id={id}
+            setDataMedicine={setDataMedicine}
+            medicineData={medicineData}
+          />
+        );
       },
     },
   ];
@@ -142,7 +155,7 @@ const ListMedicine = () => {
           pageHeading={"Medicine"}
           pageActions={
             <Grid>
-              {role === ROLE.PHARMACY && (
+              {role !== ROLE.USER && (
                 <Button
                   id="btn-create-Delivery-Note"
                   variant="contained"

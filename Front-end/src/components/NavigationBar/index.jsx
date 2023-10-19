@@ -1,5 +1,6 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import { Outlet, Link } from "react-router-dom";
+import { AppContext } from "../AppContext.js";
 
 import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "@mui/material/AppBar";
@@ -11,8 +12,12 @@ import { Logout } from "@mui/icons-material";
 
 import { styles } from "./styles";
 
+import { ROLE } from "../../constants.js";
+
 const NavigationBar = () => {
   const classes = styles();
+
+  const { role, id } = useContext(AppContext);
 
   return (
     <>
@@ -20,7 +25,7 @@ const NavigationBar = () => {
         <CssBaseline />
         <Toolbar>
           <Typography className={classes.logo}>
-            Fujicraft Inventory Management System
+            Medicine Donation System
           </Typography>
           <div className={classes.navlinks}>
             <Link to="/orders" className={classes.link}>
@@ -32,13 +37,16 @@ const NavigationBar = () => {
             {/* <Link to="/invoice" className={classes.link}>
               Invoice
             </Link> */}
-            <Link to="/pharmacy" className={classes.link}>
-              Pharmacy
-            </Link>
-            <Link to="/user" className={classes.link}>
-              User
-            </Link>
-
+            {ROLE.ADMIN === role && (
+              <Link to="/pharmacy" className={classes.link}>
+                Pharmacy
+              </Link>
+            )}
+            {ROLE.ADMIN === role && (
+              <Link to="/user" className={classes.link}>
+                User
+              </Link>
+            )}
             <Link to="/" className={classes.link}>
               <Logout />
             </Link>

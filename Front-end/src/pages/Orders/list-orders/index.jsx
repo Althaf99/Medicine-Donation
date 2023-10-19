@@ -27,75 +27,68 @@ const ListOrders = () => {
 
   const { role, id } = useContext(AppContext);
 
-  const { mutateAsync: ordersData } = useGetOrdersList({
-    patientId: id,
+  const { data: ordersData } = useGetOrdersList({
+    id: id,
+    role: role,
   });
 
-  // const columns = [
-  //   {
-  //     Header: "ID",
-  //     accessor: "id",
-  //   },
-  //   {
-  //     Header: "Name",
-  //     accessor: "name",
-  //     headerStyles: { textAlign: "center" },
-  //     cellStyles: { textAlign: "center" },
-  //   },
-  //   {
-  //     Header: "Age",
-  //     accessor: "age",
-  //     headerStyles: { textAlign: "center" },
-  //     cellStyles: { textAlign: "center" },
-  //   },
-  //   {
-  //     Header: "Address",
-  //     accessor: "address",
-  //     headerStyles: { textAlign: "center" },
-  //     cellStyles: { textAlign: "center" },
-  //     Cell: ({ value }) => (
-  //       <>
-  //         {value.toLocaleString(undefined, {
-  //           minimumFractionDigits: 2,
-  //           maximumFractionDigits: 2,
-  //         })}
-  //       </>
-  //     ),
-  //   },
-  //   {
-  //     Header: "Phone No",
-  //     accessor: "phone",
-  //     headerStyles: { textAlign: "center" },
-  //     cellStyles: { textAlign: "center" },
-  //   },
-  //   {
-  //     Header: "Date Of Birth",
-  //     accessor: "dob",
-  //     headerStyles: { textAlign: "center" },
-  //     cellStyles: { textAlign: "center" },
-  //   },
-  //   {
-  //     Header: "Actions",
-  //     accessor: "actions",
-  //     headerStyles: { textAlign: "center" },
-  //     width: "13%",
-  //     Cell: ({
-  //       cell: {
-  //         row: { values },
-  //       },
-  //     }) => {
-  //       return <OptionPanel values={values} />;
-  //     },
-  //   },
-  // ];
+  const columns = [
+    {
+      Header: "ID",
+      accessor: "id",
+    },
+    {
+      Header: "Medicine Name",
+      accessor: "medicineName",
+      headerStyles: { textAlign: "center" },
+      cellStyles: { textAlign: "center" },
+    },
+    {
+      Header: "Prescription",
+      accessor: "medicinePrescription",
+      headerStyles: { textAlign: "center" },
+      cellStyles: { textAlign: "center" },
+    },
+    {
+      Header: "ExpiryDate",
+      accessor: "expiryDate",
+      headerStyles: { textAlign: "center" },
+      cellStyles: { textAlign: "center" },
+    },
+    {
+      Header: "PharmacyName",
+      accessor: "pharmacyName",
+      headerStyles: { textAlign: "center" },
+      cellStyles: { textAlign: "center" },
+    },
+    {
+      Header: "Pharmacy Location",
+      accessor: "pharmacyLocation",
+      headerStyles: { textAlign: "center" },
+      cellStyles: { textAlign: "center" },
+    },
+    {
+      Header: "Actions",
+      accessor: "actions",
+      headerStyles: { textAlign: "center" },
+      width: "13%",
+      Cell: ({
+        cell: {
+          row: { values },
+        },
+      }) => {
+        return <OptionPanel values={values} />;
+      },
+    },
+  ];
 
   return (
     <Grid item container classes={{ container: classes.gridContainer }}>
-      <PageLayout pageHeading={"Orders"}>
-        {/* <Grid item className={classes.section} xs={12}>
+      <PageLayout pageHeading={"User Order Details"}>
+        <Grid item className={classes.section} xs={12}>
           {ordersData && (
             <LazyLoadingTable
-              // columns={columns}
+              columns={columns}
               data={ordersData}
               hiddenColumns={["id"]}
               maxHeightInRows={10}
@@ -105,7 +98,7 @@ const ListOrders = () => {
               customProps={{ height: "1200px" }}
             />
           )}
-        </Grid> */}
+        </Grid>
       </PageLayout>
       <ManageEmployee
         setOpenEmployeeDialogBox={setOpenCreateEmployee}

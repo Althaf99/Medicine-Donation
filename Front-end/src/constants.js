@@ -19,4 +19,5 @@ export const FLOW = {
 export const ROLE = {
   USER: "USER",
   PHARMACY: "PHARMACY",
+  ADMIN: "ADMIN",
 };

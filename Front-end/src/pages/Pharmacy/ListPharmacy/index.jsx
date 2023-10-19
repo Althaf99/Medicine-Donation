@@ -29,9 +29,6 @@ const ListPharmacy = () => {
 
   const { role, id } = useContext(AppContext);
 
-  console.log("role", role);
-  console.log("id", id);
-
   // const { data: itemColors } = useColors();
   // const { data: itemNames } = useItemNames();
   // const { data: requestNumbers } = useRequestNumbers();

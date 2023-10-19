@@ -1,11 +1,17 @@
 import { useQuery } from "react-query";
 import axios from "axios";
 
-const useGetOrdersList = ({ patientId }) => {
+import { ROLE } from "../../constants";
+
+const useGetOrdersList = ({ id, role }) => {
   const fetchRequest = async () => {
     const query = new URLSearchParams();
-    if (patientId) {
-      query.append("patientId", patientId);
+    if (id) {
+      if (ROLE.PHARMACY === role) {
+        query.append("pharmacyId", id);
+      } else if (ROLE.USER === role) {
+        query.append("patientId", id);
+      }
     }
     try {
       const data = await axios.get(
@@ -18,7 +24,7 @@ const useGetOrdersList = ({ patientId }) => {
     }
   };
 
-  return useQuery(["ordersData", patientId], fetchRequest, {
+  return useQuery(["ordersData", id], fetchRequest, {
     refetchOnWindowFocus: false,
   });
 };

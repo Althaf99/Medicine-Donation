@@ -13,10 +13,13 @@ import { SelectAll } from "@material-ui/icons";
 
 import useAddMedicine from "../../../hooks/services/useAddMedicine";
 
-const OptionPanel = ({ values, role, id }) => {
+import useDeleteMedicine from "../../../hooks/services/useDeleteMedicine";
+
+const OptionPanel = ({ values, role, id, medicineData, setDataMedicine }) => {
   const classes = styles();
 
   const { mutateAsync: addMedicine } = useAddMedicine();
+  const { mutateAsync: deleteMedicine } = useDeleteMedicine({ id: values?.id });
 
   const handleAddMedicine = () => {
     const orderList = {
@@ -25,9 +28,14 @@ const OptionPanel = ({ values, role, id }) => {
     };
     addMedicine(orderList);
   };
+
+  const handleDeleteMedicine = async () => {
+    await deleteMedicine();
+    setDataMedicine(medicineData);
+  };
   return (
     <Grid>
-      {role === ROLE.PHARMACY ? (
+      {role !== ROLE.USER ? (
         <Grid item container>
           <Grid item>
             <Button
@@ -54,6 +62,7 @@ const OptionPanel = ({ values, role, id }) => {
               id="btn-delete-credential"
               variant="text"
               onClick={(e) => {
+                handleDeleteMedicine();
                 e.stopPropagation();
               }}
               classes={classes.deleteBtn}

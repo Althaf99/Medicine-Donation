@@ -44,9 +44,6 @@ const Login = () => {
       (element) =>
         element.email === values.email && element.password === values.password
     );
-
-    console.log("validateUser", validateUser);
-
     const validatePharmacy = pharmacyDetails?.find(
       (element) =>
         element.email === values.email && element.password === values.password
@@ -68,7 +65,7 @@ const Login = () => {
     if (values.email === "ashinka@gmail.com" && values.password === "ashinka") {
       setRole("ADMIN");
       setEnqueueSnackbar("Admin Logged in Succesfully", "success");
-      navigate("/home");
+      navigate("/medicine");
     } else if (validation) {
       if (role === "USER") {
         setEnqueueSnackbar("Loged in as a user", "success");
