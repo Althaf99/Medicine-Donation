@@ -27,38 +27,16 @@ const ListMedicine = () => {
   const classes = styles();
   const navigate = useNavigate();
 
-  const [medicineName, MedicineName] = useState();
-  const [itemColor, setItemColor] = useState();
+  const [medicineName, setMedicineName] = useState();
   const [date, setDate] = useState(new Date());
   const [openDeliveryNoteDialogBox, setOpenDeliveryNoteDialogBox] =
     useState(false);
 
   const { role, id } = useContext(AppContext);
-  // const { data: itemColors } = useColors();
-  // const { data: itemNames } = useItemNames();
-
-  // const itemNamesArray =
-  //   itemNames &&
-  //   itemNames.length > 0 &&
-  //   itemNames.map(({ id, medicineName }) => ({
-  //     name: medicineName,
-  //     value: medicineName,
-  //   }));
-
-  // const itemColorsArray =
-  //   itemColors &&
-  //   itemColors.length > 0 &&
-  //   itemColors.map(({ id, itemColor }) => ({
-  //     name: itemColor,
-  //     value: itemColor,
-  //   }));
-
-  const { data: medicineData } = useMedicine();
-  const [dataMedicine, setDataMedicine] = useState(medicineData);
-
-  useEffect(() => {
-    setDataMedicine(medicineData);
-  }, [medicineData]);
+  const { data: medicineData } = useMedicine({
+    medicineName: medicineName,
+    donorId: role === ROLE.PHARMACY ? id : "",
+  });
 
   const columns = [
     {
@@ -84,13 +62,6 @@ const ListMedicine = () => {
       headerStyles: { textAlign: "center" },
       cellStyles: { textAlign: "center" },
     },
-
-    // {
-    //   Header: "Manufacture Date",
-    //   accessor: "manufactureDate",
-    //   headerStyles: { textAlign: "center" },
-    //   cellStyles: { textAlign: "center" },
-    // },
     {
       Header: "Expiry Date",
       accessor: "expiryDate",
@@ -120,7 +91,6 @@ const ListMedicine = () => {
             values={values}
             role={role}
             id={id}
-            setDataMedicine={setDataMedicine}
             medicineData={medicineData}
           />
         );
@@ -134,11 +104,6 @@ const ListMedicine = () => {
 
   const handleDateSelect = (date) => {
     setDate(date);
-  };
-  const handlePrintDeliveryNote = () => {
-    navigate(`/deliveryNotePrinter`, {
-      state: { deliveryNoteDate: formatDate(date) },
-    });
   };
 
   let no = 0;
@@ -165,49 +130,20 @@ const ListMedicine = () => {
                   {"Create Medicine"}
                 </Button>
               )}
-              {/* <Grid className={classes.printButton}>
-                <Button
-                  id="btn-create-invoice"
-                  variant="contained"
-                  onClick={handlePrintDeliveryNote}
-                >
-                  <AddCircleOutlineIcon className={classes.plusIcon} />
-                  {"Print Medicine Details"}
-                </Button>
-              </Grid> */}
             </Grid>
           }
         >
           <Grid container spacing={2} className={classes.topCards}>
-            <Grid item xs={2} className={classes.section}>
-              <Grid className={classes.label}>SELECT DATE EXPIRY DATE</Grid>
-              <CustomDatePicker
-                handleDateSelect={handleDateSelect}
-                date={date}
-              />
-            </Grid>
             <Grid item xs={2} className={classes.section}>
               <LabelledEditableSelect
                 label="MEDICINE NAME"
                 id="medicineName"
                 name="medicineName"
                 placeholder="Select Medicine Name"
-                onChange={(value) => MedicineName(value)}
+                onChange={(value) => setMedicineName(value)}
                 value={medicineName}
-                // items={itemNamesArray}
               />
             </Grid>
-            {/* <Grid item xs={2} className={classes.section}>
-              <LabelledEditableSelect
-                label="ITEM COLOR"
-                id="itemColor"
-                name="itemColor"
-                placeholder="Select Item Color"
-                onChange={(value) => setItemColor(value)}
-                value={itemColor}
-                items={itemColorsArray}
-              />
-            </Grid> */}
           </Grid>
 
           <Grid item className={classes.section} xs={12}>
@@ -228,8 +164,6 @@ const ListMedicine = () => {
         </PageLayout>
 
         <ManageDeliveryNote
-          // itemColorsArray={itemColorsArray}
-          // itemNamesArray={itemNamesArray}
           openDeliveryNoteDialogBox={openDeliveryNoteDialogBox}
           setOpenDeliveryNoteDialogBox={setOpenDeliveryNoteDialogBox}
           id={id}

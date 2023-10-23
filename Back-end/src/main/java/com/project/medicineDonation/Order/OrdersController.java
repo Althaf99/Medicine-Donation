@@ -9,29 +9,29 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3006")
 @RestController
-public class OrderController {
+public class OrdersController {
 
     @Autowired
-    OrderService orderService;
+    OrdersService ordersService;
 
 
     @PostMapping("/addMedicine")
     private void createOrder(@RequestBody Orders orders){
-        orderService.createOrder(orders);
+        ordersService.createOrder(orders);
     }
 
-    @GetMapping("/GetOrderDetails")
-    private List<Orders> getOrder(){
-        return orderService.getAllOrders();
+    @GetMapping("/getOrders")
+    private List<DetailsOrder> getOrder( @RequestParam(required = false) Integer patientId,@RequestParam(required = false)  Integer  pharmacyId){
+        return ordersService.getAllOrders(patientId,pharmacyId);
     }
 
     @DeleteMapping("DeleteOrder/{id}")
     private void deleteOrder(@PathVariable int id){
-        orderService.deleteOrder(id);
+        ordersService.deleteOrder(id);
     }
 
     @PutMapping("UpdateOrderDetail/{id}")
-    private ResponseEntity<Object> updateOrder(@PathVariable int id, @RequestBody Orders orders){
-        return orderService.updateOrder(id, orders);
+    private ResponseEntity<Object> updateOrder(@PathVariable int id){
+        return ordersService.updateOrder(id);
     }
 }

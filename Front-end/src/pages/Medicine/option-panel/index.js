@@ -15,7 +15,7 @@ import useAddMedicine from "../../../hooks/services/useAddMedicine";
 
 import useDeleteMedicine from "../../../hooks/services/useDeleteMedicine";
 
-const OptionPanel = ({ values, role, id, medicineData, setDataMedicine }) => {
+const OptionPanel = ({ values, role, id, medicineData }) => {
   const classes = styles();
 
   const { mutateAsync: addMedicine } = useAddMedicine();
@@ -31,47 +31,22 @@ const OptionPanel = ({ values, role, id, medicineData, setDataMedicine }) => {
 
   const handleDeleteMedicine = async () => {
     await deleteMedicine();
-    setDataMedicine(medicineData);
   };
   return (
     <Grid>
       {role !== ROLE.USER ? (
-        <Grid item container>
-          <Grid item>
-            <Button
-              id="btn-edit-credential"
-              onClick={(e) => {
-                e.stopPropagation();
-              }}
-              variant="text"
-              classes={classes.btnRoot}
-              startIcon={
-                <EditIcon color="#808CA3" className={classes.editIconRoot} />
-              }
-            >
-              <span className={classes.btnText}>Edit</span>
-            </Button>
-          </Grid>
-          <Divider
-            orientation="vertical"
-            flexItem
-            className={classes.divider}
-          />
-          <Grid item>
-            <Button
-              id="btn-delete-credential"
-              variant="text"
-              onClick={(e) => {
-                handleDeleteMedicine();
-                e.stopPropagation();
-              }}
-              classes={classes.deleteBtn}
-              startIcon={<DeleteIcon className={classes.menuIconRoot} />}
-            >
-              <span className={classes.btnText}>Delete</span>
-            </Button>
-          </Grid>
-        </Grid>
+        <Button
+          id="btn-delete-credential"
+          variant="text"
+          onClick={(e) => {
+            handleDeleteMedicine();
+            e.stopPropagation();
+          }}
+          classes={classes.deleteBtn}
+          startIcon={<DeleteIcon className={classes.menuIconRoot} />}
+        >
+          <span className={classes.btnText}>Delete</span>
+        </Button>
       ) : (
         <Box>
           <Button

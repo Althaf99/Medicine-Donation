@@ -15,6 +15,8 @@ import { styles } from "./styles";
 
 import useGetOrdersList from "../../../hooks/services/useGetOrdersList";
 
+import { ROLE } from "../../../constants.js";
+
 const ListOrders = () => {
   const classes = styles();
   const navigate = useNavigate();
@@ -68,10 +70,19 @@ const ListOrders = () => {
       cellStyles: { textAlign: "center" },
     },
     {
+      Header: "Delivered",
+      accessor: "deliverd",
+      headerStyles: { textAlign: "center" },
+      cellStyles: { textAlign: "center" },
+      Cell: ({ value }) => <>{value?.toLocaleString()}</>,
+    },
+  ];
+  if (role === ROLE.PHARMACY) {
+    columns.splice(7, 0, {
       Header: "Actions",
       accessor: "actions",
       headerStyles: { textAlign: "center" },
-      width: "13%",
+      cellStyles: { textAlign: "center" },
       Cell: ({
         cell: {
           row: { values },
@@ -79,8 +90,8 @@ const ListOrders = () => {
       }) => {
         return <OptionPanel values={values} />;
       },
-    },
-  ];
+    });
+  }
 
   return (
     <Grid item container classes={{ container: classes.gridContainer }}>

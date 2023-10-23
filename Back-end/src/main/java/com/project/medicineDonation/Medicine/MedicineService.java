@@ -1,8 +1,10 @@
 package com.project.medicineDonation.Medicine;
 
 import com.project.medicineDonation.Medicine.Medicine;
-import com.project.medicineDonation.Medicine.MedicineRepository;
+import com.project.medicineDonation.Order.DetailsOrder;
+import io.micrometer.common.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -22,8 +24,23 @@ public class MedicineService {
         medicineRepository.save(medicine);
     }
 
-    public List<Medicine> getAllMedicines() {
-        return medicineRepository.findAll();
+    public List<Medicine> getAllMedicines(String medicineName,Integer donorId) {
+        List<Medicine> medicineOrder = new ArrayList<Medicine>();
+         medicineRepository.findAll(Specification.where(medicineNameEquals(medicineName)).and(donorIdEquals(donorId))).forEach(updated -> medicineOrder.add((Medicine) updated));
+         return medicineOrder;
+    }
+    private Specification<Medicine> donorIdEquals(final Integer donorId) {
+        return(root, query, builder) -> {
+            if (donorId != null) {
+                return builder.equal(root.get("donorId"), donorId);
+            } else {
+                return null;
+            }
+        };
+    }
+
+    private Specification<Medicine> medicineNameEquals(final String medicineName) {
+        return StringUtils.isEmpty(medicineName) ? null : (root, query, builder) -> builder.equal(root.get("medicineName"), medicineName);
     }
 
     public void deleteMedicine(int id) {

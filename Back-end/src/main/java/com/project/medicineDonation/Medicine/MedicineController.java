@@ -23,8 +23,8 @@ public class MedicineController {
     }
 
     @GetMapping("/GetMedicineDetails")
-    private List<Medicine> getMedicine(){
-        return medicineService.getAllMedicines();
+    private List<Medicine> getMedicine( @RequestParam(required = false) String medicineName,@RequestParam(required = false) Integer donorId){
+        return medicineService.getAllMedicines(medicineName,donorId);
     }
 
     @DeleteMapping("DeleteMedicine/{id}")

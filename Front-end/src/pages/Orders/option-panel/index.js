@@ -1,50 +1,41 @@
-import React from "react";
+import React, { useContext } from "react";
 
-import { Grid, Button, Divider, Box } from "@mui/material";
+import { Button } from "@mui/material";
 
-import EditIcon from "../../../components/EditIcon";
-import DeleteIcon from "../../../components/DeleteIcon";
+import { AppContext } from "../../../components/AppContext.js/index.jsx";
+import { Add } from "@material-ui/icons";
 
 import { styles } from "../list-orders/styles";
 
+import { ROLE } from "../../../constants.js";
+
+import useDeliverMedicine from "../../../hooks/services/useDeliveryMedicine.js";
+
 const OptionPanel = ({ values }) => {
+  const { role, id } = useContext(AppContext);
   const classes = styles();
+
+  const { mutateAsync: updateMedicine } = useDeliverMedicine({ id: values.id });
+
+  const handleMarkAsDelivered = () => {
+    updateMedicine();
+  };
   return (
-    <Grid>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          width: "fit-content",
-        }}
-      >
+    <>
+      {role === ROLE.PHARMACY && (
         <Button
-          id="btn-edit-credential"
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-          variant="text"
-          classes={classes.btnRoot}
-          startIcon={
-            <EditIcon color="#808CA3" className={classes.editIconRoot} />
-          }
-        >
-          <span className={classes.btnText}>Edit</span>
-        </Button>
-        <Divider orientation="vertical" flexItem className={classes.divider} />
-        <Button
-          id="btn-delete-credential"
+          id="btn-delivered-credential"
           variant="text"
           onClick={(e) => {
-            e.stopPropagation();
+            handleMarkAsDelivered();
           }}
           classes={classes.deleteBtn}
-          startIcon={<DeleteIcon className={classes.menuIconRoot} />}
+          startIcon={<Add className={classes.menuIconRoot} />}
         >
-          <span className={classes.btnText}>Delete</span>
+          <span className={classes.btnText}>Delivered</span>
         </Button>
-      </Box>
-    </Grid>
+      )}
+    </>
   );
 };
 

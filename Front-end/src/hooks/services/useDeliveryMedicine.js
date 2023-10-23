@@ -2,9 +2,9 @@ import { useMutation, useQueryClient } from "react-query";
 
 import axios from "axios";
 
-const useUpdateStock = ({ repairId }) => {
+const useDeliverMedicine = ({ id }) => {
   const QueryClient = useQueryClient();
-  const useURL = `http://localhost:8080/stock/${repairId}`;
+  const useURL = `http://localhost:8080/UpdateOrderDetail/${id}`;
 
   return useMutation(
     (obj) => axios.put(useURL, JSON.stringify(obj)).then((x) => x.json()),
@@ -21,4 +21,4 @@ const useUpdateStock = ({ repairId }) => {
   );
 };
 
-export default useUpdateStock;
+export default useDeliverMedicine;

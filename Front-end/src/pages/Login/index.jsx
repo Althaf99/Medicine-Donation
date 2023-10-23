@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { AppContext } from "../../components/AppContext.js";
 
 import { useSnackbar } from "notistack";
@@ -30,6 +30,11 @@ const Login = () => {
     email: "",
     phoneNumber: "",
   });
+
+  useEffect(() => {
+    setRole("");
+    setId("");
+  }, []);
 
   const { enqueueSnackbar } = useSnackbar();
 
