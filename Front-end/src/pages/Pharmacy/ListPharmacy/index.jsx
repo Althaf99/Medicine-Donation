@@ -29,37 +29,8 @@ const ListPharmacy = () => {
 
   const { role, id } = useContext(AppContext);
 
-  // const { data: itemColors } = useColors();
-  // const { data: itemNames } = useItemNames();
-  // const { data: requestNumbers } = useRequestNumbers();
-
-  // const locationArray =
-  //   itemNames &&
-  //   itemNames.length > 0 &&
-  //   itemNames.map(({ id, location }) => ({
-  //     name: location,
-  //     value: location,
-  //   }));
-
-  // const itemColorsArray =
-  //   itemColors &&
-  //   itemColors.length > 0 &&
-  //   itemColors.map(({ id, itemColor }) => ({
-  //     name: itemColor,
-  //     value: itemColor,
-  //   }));
-
-  // const requestNumbersArray =
-  //   requestNumbers &&
-  //   requestNumbers.length > 0 &&
-  //   requestNumbers.map(({ id, pharmacyName }) => ({
-  //     name: pharmacyName,
-  //     value: pharmacyName,
-  //   }));
-
   const { data: pharmacyDetails } = useGetPharmacyDetails({
     location: location,
-    itemColor: itemColor,
     pharmacyName: pharmacyName,
   });
 
@@ -99,23 +70,25 @@ const ListPharmacy = () => {
       headerStyles: { textAlign: "center" },
       cellStyles: { textAlign: "center" },
     },
-    // {
-    //   Header: "PO Date",
-    //   accessor: "date",
-    // },
-    // {
-    //   Header: "Actions",
-    //   accessor: "actions",
-    //   headerStyles: { textAlign: "center" },
-    //   width: "13%",
-    //   Cell: ({
-    //     cell: {
-    //       row: { values },
-    //     },
-    //   }) => {
-    //     return <OptionPanel values={values} />;
-    //   },
-    // },
+    {
+      Header: "Actions",
+      accessor: "actions",
+      headerStyles: { textAlign: "center" },
+      cellStyles: { textAlign: "center" },
+      Cell: ({
+        cell: {
+          row: { values },
+        },
+      }) => {
+        return (
+          <OptionPanel
+            values={values}
+            location={location}
+            pharmacyName={pharmacyName}
+          />
+        );
+      },
+    },
   ];
 
   const handleCreatePurchaseOrder = () => {
@@ -155,7 +128,6 @@ const ListPharmacy = () => {
                 placeholder="Select Pharmacy Name"
                 onChange={(value) => setPharmacyName(value)}
                 value={pharmacyName}
-                // items={requestNumbersArray}
               />
             </Grid>
             <Grid item xs={2} className={classes.section}>
@@ -166,7 +138,6 @@ const ListPharmacy = () => {
                 placeholder="Select Location"
                 onChange={(value) => setLocation(value)}
                 value={location}
-                // items={locationArray}
               />
             </Grid>
             {/* <Grid item xs={2} className={classes.section}>

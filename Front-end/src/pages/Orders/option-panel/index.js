@@ -11,14 +11,15 @@ import { ROLE } from "../../../constants.js";
 
 import useDeliverMedicine from "../../../hooks/services/useDeliveryMedicine.js";
 
-const OptionPanel = ({ values }) => {
+const OptionPanel = ({ values, setReftch, refetch }) => {
   const { role, id } = useContext(AppContext);
   const classes = styles();
 
   const { mutateAsync: updateMedicine } = useDeliverMedicine({ id: values.id });
 
-  const handleMarkAsDelivered = () => {
-    updateMedicine();
+  const handleMarkAsDelivered = async () => {
+    await updateMedicine();
+    setReftch(!refetch);
   };
   return (
     <>

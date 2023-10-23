@@ -3,7 +3,7 @@ import axios from "axios";
 
 import { ROLE } from "../../constants";
 
-const useGetOrdersList = ({ id, role }) => {
+const useGetOrdersList = ({ id, role, refetch }) => {
   const fetchRequest = async () => {
     const query = new URLSearchParams();
     if (id) {
@@ -24,9 +24,7 @@ const useGetOrdersList = ({ id, role }) => {
     }
   };
 
-  return useQuery(["ordersData", id], fetchRequest, {
-    refetchOnWindowFocus: false,
-  });
+  return useQuery(["ordersData", id, refetch], fetchRequest);
 };
 
 export default useGetOrdersList;

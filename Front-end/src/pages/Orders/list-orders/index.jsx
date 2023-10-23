@@ -22,6 +22,7 @@ const ListOrders = () => {
   const navigate = useNavigate();
 
   const [openCreateEmployee, setOpenCreateEmployee] = useState(false);
+  const [refetch, setReftch] = useState(false);
 
   const handleCreateEmployee = () => {
     setOpenCreateEmployee(true);
@@ -32,6 +33,7 @@ const ListOrders = () => {
   const { data: ordersData } = useGetOrdersList({
     id: id,
     role: role,
+    refetch: refetch,
   });
 
   const columns = [
@@ -42,6 +44,12 @@ const ListOrders = () => {
     {
       Header: "Medicine Name",
       accessor: "medicineName",
+      headerStyles: { textAlign: "center" },
+      cellStyles: { textAlign: "center" },
+    },
+    {
+      Header: "Patient Name",
+      accessor: "patientName",
       headerStyles: { textAlign: "center" },
       cellStyles: { textAlign: "center" },
     },
@@ -88,7 +96,13 @@ const ListOrders = () => {
           row: { values },
         },
       }) => {
-        return <OptionPanel values={values} />;
+        return (
+          <OptionPanel
+            values={values}
+            setReftch={setReftch}
+            refetch={refetch}
+          />
+        );
       },
     });
   }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 import { Grid, Button } from "@mui/material";
 import NoteAddTwoToneIcon from "@mui/icons-material/NoteAddTwoTone";
@@ -19,8 +19,9 @@ const ListUser = () => {
   const classes = styles();
 
   const [openCreateRepair, setOpenCreateRepair] = useState(false);
+  const [enabled, setEnabled] = useState(false);
 
-  const { data: repairData } = useGetUsers();
+  const { data: useData } = useGetUsers();
 
   const handleCreateRepair = () => {
     setOpenCreateRepair(true);
@@ -34,6 +35,24 @@ const ListUser = () => {
     {
       Header: "User Name",
       accessor: "name",
+      headerStyles: { textAlign: "center" },
+      cellStyles: { textAlign: "center" },
+    },
+    {
+      Header: "Email",
+      accessor: "email",
+      headerStyles: { textAlign: "center" },
+      cellStyles: { textAlign: "center" },
+    },
+    {
+      Header: "Gender",
+      accessor: "gender",
+      headerStyles: { textAlign: "center" },
+      cellStyles: { textAlign: "center" },
+    },
+    {
+      Header: "NIC",
+      accessor: "nationalIdentityNumber",
       headerStyles: { textAlign: "center" },
       cellStyles: { textAlign: "center" },
     },
@@ -56,10 +75,17 @@ const ListUser = () => {
       cellStyles: { textAlign: "center" },
     },
     {
-      Header: "Email",
-      accessor: "email",
+      Header: "Actions",
+      accessor: "actions",
       headerStyles: { textAlign: "center" },
       cellStyles: { textAlign: "center" },
+      Cell: ({
+        cell: {
+          row: { values },
+        },
+      }) => {
+        return <OptionPanel values={values} setEnabled={setEnabled} />;
+      },
     },
   ];
 
@@ -81,10 +107,10 @@ const ListUser = () => {
         }
       >
         <Grid item className={classes.section} xs={12}>
-          {repairData && (
+          {useData && (
             <LazyLoadingTable
               columns={columns}
-              data={repairData}
+              data={useData}
               hiddenColumns={["id"]}
               maxHeightInRows={10}
               onClickTableRow={(index, row) => {

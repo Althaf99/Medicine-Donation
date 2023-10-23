@@ -1,4 +1,5 @@
 import React from "react";
+import { useQueryClient } from "react-query";
 
 import { Grid, Button, Divider, Box } from "@mui/material";
 
@@ -7,44 +8,30 @@ import DeleteIcon from "../../../components/DeleteIcon";
 
 import { styles } from "../list-user/styles";
 
-const OptionPanel = ({ values }) => {
+import useDeleteUser from "../../../hooks/services/useDeleteUser";
+
+const OptionPanel = ({ values, enabled, setEnabled }) => {
   const classes = styles();
+  const queryClient = useQueryClient();
+
+  const { mutateAsync: deleteUser } = useDeleteUser({ id: values.id });
+
+  const handleDeleteUser = async () => {
+    await deleteUser();
+    setEnabled(true);
+  };
   return (
-    <Grid>
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          width: "fit-content",
-        }}
-      >
-        <Button
-          id="btn-edit-credential"
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-          variant="text"
-          classes={classes.btnRoot}
-          startIcon={
-            <EditIcon color="#808CA3" className={classes.editIconRoot} />
-          }
-        >
-          <span className={classes.btnText}>Edit</span>
-        </Button>
-        <Divider orientation="vertical" flexItem className={classes.divider} />
-        <Button
-          id="btn-delete-credential"
-          variant="text"
-          onClick={(e) => {
-            e.stopPropagation();
-          }}
-          classes={classes.deleteBtn}
-          startIcon={<DeleteIcon className={classes.menuIconRoot} />}
-        >
-          <span className={classes.btnText}>Delete</span>
-        </Button>
-      </Box>
-    </Grid>
+    <Button
+      id="btn-delete-credential"
+      variant="text"
+      onClick={(e) => {
+        handleDeleteUser();
+      }}
+      classes={classes.deleteBtn}
+      startIcon={<DeleteIcon className={classes.menuIconRoot} />}
+    >
+      <span className={classes.btnText}>Delete</span>
+    </Button>
   );
 };
 

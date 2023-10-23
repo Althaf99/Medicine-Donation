@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 
-const useDeleteStock = ({ id }) => {
+const useDeletePharmacy = ({ id }) => {
   const QueryClient = useQueryClient();
-  const deleteStock = `http://localhost:8080/stock/${id}`;
+  const deleteStock = `http://localhost:8080/DeleteDonor/${id}`;
 
   return useMutation(
     (obj) =>
@@ -21,4 +21,4 @@ const useDeleteStock = ({ id }) => {
   );
 };
 
-export default useDeleteStock;
+export default useDeletePharmacy;

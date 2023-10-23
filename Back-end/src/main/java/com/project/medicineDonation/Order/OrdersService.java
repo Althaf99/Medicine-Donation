@@ -82,7 +82,7 @@ public class OrdersService {
 
     private Specification<DetailsOrder> patientIdEquals(final Integer patientId) {
         return(root, query, builder) -> {
-            if (patientId != 0) { // Assuming 0 is a valid value for patientId
+            if (patientId != null) {
                 return builder.equal(root.get("patientId"), patientId);
             } else {
                 return null;

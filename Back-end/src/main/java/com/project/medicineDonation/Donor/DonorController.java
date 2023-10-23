@@ -20,8 +20,8 @@ public class DonorController {
     }
 
     @GetMapping("/GetDonorDetails")
-    private List<Donor> getDonor(){
-        return donorService.getAllDonors();
+    private List<Donor> getDonor( @RequestParam(required = false) String pharmacyName,@RequestParam(required = false) String location){
+        return donorService.getAllDonors(pharmacyName,location);
     }
 
     @DeleteMapping("DeleteDonor/{id}")

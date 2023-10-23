@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "react-query";
 import axios from "axios";
 
-const useDeleteRepair = ({ id }) => {
+const useDeleteUser = ({ id }) => {
   const QueryClient = useQueryClient();
-  const deleteRepair = `http://localhost:8080/repair/${id}`;
+  const deleteRepair = `http://localhost:8080/DeletePatient/${id}`;
 
   return useMutation(
     (obj) =>
@@ -21,4 +21,4 @@ const useDeleteRepair = ({ id }) => {
   );
 };
 
-export default useDeleteRepair;
+export default useDeleteUser;

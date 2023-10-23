@@ -63,6 +63,12 @@ const ListMedicine = () => {
       cellStyles: { textAlign: "center" },
     },
     {
+      Header: "Manufacture Date",
+      accessor: "manufactureDate",
+      headerStyles: { textAlign: "center" },
+      cellStyles: { textAlign: "center" },
+    },
+    {
       Header: "Expiry Date",
       accessor: "expiryDate",
       headerStyles: { textAlign: "center" },
@@ -120,7 +126,7 @@ const ListMedicine = () => {
           pageHeading={"Medicine"}
           pageActions={
             <Grid>
-              {role !== ROLE.USER && (
+              {role === ROLE.PHARMACY && (
                 <Button
                   id="btn-create-Delivery-Note"
                   variant="contained"

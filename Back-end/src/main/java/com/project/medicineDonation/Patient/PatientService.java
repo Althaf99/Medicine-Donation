@@ -24,6 +24,7 @@ public class PatientService {
 
     public void deletePatient(int id) {
         patientRepository.deleteById(id);
+        patientRepository.findAll();
     }
 
     public ResponseEntity<Object> updatePatient(int id, Patient patient) {

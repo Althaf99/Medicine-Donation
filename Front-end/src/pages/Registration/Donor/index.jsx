@@ -36,16 +36,12 @@ const PharmacyRegistration = ({
       height="800px"
       children={
         <Grid className={classes.container}>
-          {/* <Typography variant="h4" className={classes.heading}>
-            University of Kelaniya
-          </Typography> */}
           <AccountCircle className={classes.icon} />
           <Formik
             initialValues={{
               pharmacyName: "",
               location: "",
               email: "",
-              role: "DONOR",
               phoneNumber: "",
               password: "",
             }}
@@ -74,13 +70,6 @@ const PharmacyRegistration = ({
           >
             {({ isValid = false }) => (
               <Form className={classes.form}>
-                <Field
-                  as={TextField}
-                  name="role"
-                  label="ROLE"
-                  variant="outlined"
-                  disabled={true}
-                />
                 <Field
                   as={TextField}
                   name="pharmacyName"

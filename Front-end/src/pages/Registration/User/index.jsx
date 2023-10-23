@@ -34,13 +34,12 @@ const UserRegistration = ({ openRegisterTeacher, setOpenRegisterTeacher }) => {
         <Grid className={classes.container}>
           <AccountCircle className={classes.icon} />
           <Typography variant="h4" className={classes.heading}>
-            Register Teacher
+            Register User
           </Typography>
           <Formik
             initialValues={{
               name: "",
               email: "",
-              role: "USER",
               password: "",
               location: "",
               phoneNumber: "",
@@ -83,13 +82,6 @@ const UserRegistration = ({ openRegisterTeacher, setOpenRegisterTeacher }) => {
           >
             {({ isValid = false }) => (
               <Form className={classes.form}>
-                <Field
-                  as={TextField}
-                  name="role"
-                  label="ROLE"
-                  variant="outlined"
-                  disabled={true}
-                />
                 <Field
                   as={TextField}
                   name="name"
