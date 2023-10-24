@@ -7,7 +7,6 @@ import NoteAddTwoToneIcon from "@mui/icons-material/NoteAddTwoTone";
 
 import PageLayout from "../../../components/PageLayout";
 import LazyLoadingTable from "../../../components/LazyLoadingTable";
-import ManageEmployee from "../manage-orders";
 
 import OptionPanel from "../option-panel";
 
@@ -125,10 +124,6 @@ const ListOrders = () => {
           )}
         </Grid>
       </PageLayout>
-      <ManageEmployee
-        setOpenEmployeeDialogBox={setOpenCreateEmployee}
-        openEmployeeDialogBox={openCreateEmployee}
-      />
     </Grid>
   );
 };

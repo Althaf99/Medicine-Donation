@@ -1,11 +1,10 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 
 import { Grid, Button } from "@mui/material";
 import NoteAddTwoToneIcon from "@mui/icons-material/NoteAddTwoTone";
 
 import PageLayout from "../../../components/PageLayout";
 import LazyLoadingTable from "../../../components/LazyLoadingTable";
-import ManageEmployee from "../manage-user";
 
 import OptionPanel from "../option-panel";
 
